@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+
+            <div class="jumbotron p-3">
+                <h2>Manage <b>Posts </b>  <button type="button"  class="btn btn-success float-right"  data-bs-toggle="modal" data-bs-target="#mymodal">Add New Post</button> </h2>
+                </div>
+
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Message</th>
+                        <th></th>
+                    </tr>
+                   {% for row in posts %}
+                    <tr>
+                        <td>{{row.title}}</td>
+                        <td>{{row.message}}</td>
+                        <td>
+                            <a href="{{ url_for('blog.update') }}{{row.id}}" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#modaledit{{row.id}}">Edit</a>
+                            <a href="{{ url_for('blog.delete', id=row.id)}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+                        </td>
+
+                    </tr>
+
+                  <!-- Modal Edit Employee-->
+<div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Update Information</h4>
+         </div>
+         <div class="modal-body">
+            <form action="{{url_for('blog.update')}}" method="POST">
+                <div class="form-group">
+                    <label>Title:</label>
+                     <input type="hidden"  name="id" value="{{row.id}}"> 
+                    <input type="text" class="form-control" name="title" value="{{row.title}}">
+  
+                 </div>
+                 <div class="form-group">  
+                    <label>Message:</label>
+                    <input type="text" class="form-control" name="message" value="{{row.message}}">
+                 </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+         </div>
+      </div>
+   </div>
+</div>
+                    {% endfor %}
+                </table>
+            </div>
+<!-- Modal Add Post-->
+            <div id="mymodal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                   <div class="modal-content">
+                      <div class="modal-header">
+             
+                         <h4 class="modal-title">Add Post</h4>
+                      </div>
+                      <div class="modal-body">
+             
+                         <form action="{{url_for('blog.insert')}}" method="POST">
+                            {{ form.csrf_token }}
+                            <div class="form-group">
+             
+                               <label>Title:</label>
+                               <input type="text" class="form-control" name="title" required="1">
+                            </div>
+                             <div class="form-group">
+                               <label>Message:</label>
+                               <input type="message" class="form-control" name="message" required="1">
+                            </div>
+                            <div class="form-group">
+                               <button class="btn btn-primary" type="submit">Add Post</button>
+                            </div>     
+                         </form>
+                     
+                      </div>
+
+                      <div class="modal-footer">
+             
+                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             
+                      </div>
+                   </div>
+                </div>
+             </div>
+             
+        </div>
+    </div>
+</div>
+
+{% endblock %}

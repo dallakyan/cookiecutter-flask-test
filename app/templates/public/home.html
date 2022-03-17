@@ -4,9 +4,14 @@
 
 {% block content %}
 {% for post in posts %}
+<h1> {{post.title}} </h1>
 <p> {{post.message}} </p>
 <p> {{post.author.username}} </p>
 {% endfor %}
+
+<!-- <a href="{{ url_for('public.upload') }}">Upload File</a> -->
+
+
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">

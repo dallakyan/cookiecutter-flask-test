@@ -32,7 +32,7 @@ def create_app(config_object="app.settings"):
     register_shellcontext(app)
     register_commands(app)
     configure_logger(app)
-    admin.add_view(AdminModelView(User, db.session, endpoint="users_"))
+    admin.add_view(AdminModelView(User, db.session, endpoint="users_"))      
     return app
 
 

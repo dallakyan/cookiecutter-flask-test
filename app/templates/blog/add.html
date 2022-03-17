@@ -6,7 +6,11 @@
     <br/>
     <form id="addBlogForm" class="form form-register" method="POST" action="" role="form">
            {{ form.csrf_token }}
-            <div class="form-group">
+           <div class="form-group">
+            {{form.title.label}}
+            {{form.title(placeholder="Title", class_="form-control")}}
+          </div> 
+           <div class="form-group">
                 {{form.message.label}}
                 {{form.message(placeholder="Message", class_="form-control")}}
             </div>

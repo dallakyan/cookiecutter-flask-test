@@ -9,7 +9,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="navbar-collapse collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto">
       <li class="nav-item active">
         <a class="nav-link" href="{{ url_for('public.home') }}">Home
@@ -30,12 +30,12 @@
           <i class="fa fa-sign-out-alt"></i>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('blog.addpost') }}">Add Post
-          <i class="fa fa-sign-out-alt"></i>
-        </a>
-      </li>
+        <li><a class="nav-link" href="{{ url_for('blog.insert') }}">Add Post</a></li>
+        <li><a class="nav-link" href="{{ url_for('blog.list') }}">List Posts</a></li>
     </ul>
+
+
+
     {% elif form %}
     <form class="form-inline" id="loginForm" method="POST" action="{{ url_for('public.home') }}" role="login">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
