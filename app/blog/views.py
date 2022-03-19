@@ -36,6 +36,16 @@ def list():
     form = FlaskForm() #need thos for csrf_token
     return render_template("/blog/list.html", posts = posts, form = form)
 
+@blueprint.route("/search", )
+def search():
+    search_word = request.args.get('search')
+    if search_word:
+        posts = Post.query.filter(Post.title.contains(search_word)|Post.message.contains(search_word))
+    else:
+        posts = Post.query.all()
+    return render_template("public/home.html", posts=posts)
+
+
 @blueprint.route("/list_pages", )
 def list_pages():
     page = request.args.get('page', 1, type=int)

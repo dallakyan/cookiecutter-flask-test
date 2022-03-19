@@ -38,15 +38,7 @@ def home():
     current_app.logger.info("Hello from the home page!")
     # Handle logging in
     posts =  Post.query.all()
-    if request.method == "POST":
-        if form.validate_on_submit():
-            login_user(form.user)
-            flash("You are logged in.", "success")
-            redirect_url = request.args.get("next") or url_for("user.members")
-            return redirect(redirect_url)
-        else:
-            flash_errors(form)
-    return render_template("public/home.html", form=form, posts=posts)
+    return render_template("public/home.html", posts=posts)
 
 
 @blueprint.route("/logout/")
@@ -56,6 +48,22 @@ def logout():
     logout_user()
     flash("You are logged out.", "info")
     return redirect(url_for("public.home"))
+
+
+@blueprint.route("/login/", methods=["GET", "POST"])
+def login():
+    """Register new user."""
+    form = LoginForm(request.form)    
+    import pdb;pdb.set_trace
+    if request.method == "POST":
+        if form.validate_on_submit():
+            login_user(form.user)
+            flash("You are logged in.", "success")
+            redirect_url = request.args.get("next") or url_for("user.members")
+            return redirect(redirect_url)
+        else:
+            flash_errors(form)    
+    return render_template("public/login.html", form=form)
 
 
 @blueprint.route("/register/", methods=["GET", "POST"])
